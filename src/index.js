@@ -8,12 +8,20 @@ const Otsikko = (props) => {
   )
 }
 
+const Osa = (props) =>{
+  return(
+    <div>
+    <p>{props.sis} {props.teht}</p>
+    </div>
+  )
+}
+
 const Sisalto = (props) => {
   return (
     <div>
-    <p>{props.sis1} {props.teht1}</p>
-    <p>{props.sis2} {props.teht2}</p>
-    <p>{props.sis3} {props.teht3}</p>
+    <Osa sis={props.sis1} teht={props.teht1} />
+    <Osa sis={props.sis2} teht={props.teht2} />
+    <Osa sis={props.sis3} teht={props.teht3} />
     </div>
   )
 }
