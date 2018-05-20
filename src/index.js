@@ -10,8 +10,35 @@ const Otsikko = (props) => {
   )
 }
 
+//Käytetään destruktointia näissä!
+const Button = ({nappiFunktio, teksti}) => {
+  return (
+    <button onClick={nappiFunktio}>{teksti}</button>
+  )
+}
 
-class Palaute extends React.Component {
+const Statistics = ({aanet}) => {
+  return (
+    <div>
+    <h3>Statistiikka:</h3>
+    <p>Hyvä: {aanet.hyva}</p>
+    <p>Neutraali: {aanet.neutraali}</p>
+    <p>Huono: {aanet.huono}</p>
+    </div>
+  )
+}
+
+const Statistic = ({statsit}) => {
+  return (
+    <div>
+    <p>Keskiarvo: {statsit.keskiarvo.toFixed(1)}</p>
+    <p>Hyviä: {statsit.hyvaProsentti.toFixed(1)} %</p>
+    </div>
+  )
+}
+
+
+class PalauteApp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -61,6 +88,7 @@ class Palaute extends React.Component {
       console.log("hp: ", hp);
     }
     //console.log("ka: ", ka);
+    //Lasketaan myös hyvaProsentti tässä
     this.setState({
       keskiarvo: ka,
       hyvaProsentti: hp
@@ -77,31 +105,19 @@ class Palaute extends React.Component {
 
     return (
       <div>
-      <button onClick={this.lisaaHyva}>Hyvä</button>
-      <button onClick={this.lisaaNeutraali}>Neutraali</button>
-      <button onClick={this.lisaaHuono}>Huono</button>
-      <h3>Statistiikka:</h3>
-      <p>Hyvä: {this.state.hyva}</p>
-      <p>Neutraali: {this.state.neutraali}</p>
-      <p>Huono: {this.state.huono}</p>
-      <p>Keskiarvo: {this.state.keskiarvo.toFixed(1)}</p>
-      <p>Hyviä: {this.state.hyvaProsentti.toFixed(1)} %</p>
+      <Otsikko />
+      <Button nappiFunktio={this.lisaaHyva} teksti="Hyvä" />
+      <Button nappiFunktio={this.lisaaNeutraali} teksti="Neutraali" />
+      <Button nappiFunktio={this.lisaaHuono} teksti="Huono" />
+      <Statistics aanet={this.state} />
+      <Statistic statsit={this.state} />
       <p> </p>
       </div>
     )
   }
 }
 
-const App = () => {
-      return (
-        <div>
-          <Otsikko />
-          <Palaute />
-        </div>
-      )
-}
-
 ReactDOM.render(
-  <App />,
+  <PalauteApp />,
   document.getElementById('root')
 )
