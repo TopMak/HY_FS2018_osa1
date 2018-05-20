@@ -20,7 +20,6 @@ const Button = ({nappiFunktio, teksti}) => {
 const Statistics = ({aanet}) => {
   return (
     <div>
-    <h3>Statistiikka:</h3>
     <p>Hyvä: {aanet.hyva}</p>
     <p>Neutraali: {aanet.neutraali}</p>
     <p>Huono: {aanet.huono}</p>
@@ -103,15 +102,28 @@ class PalauteApp extends React.Component {
       console.log("keskiarvo", this.state.keskiarvo)
       console.log("hyvaProsentti", this.state.hyvaProsentti)
 
+      if (this.state.aanetSumma === 0) {
+        return (
+          <div>
+          <Otsikko />
+          <Button nappiFunktio={this.lisaaHyva} teksti="Hyvä" />
+          <Button nappiFunktio={this.lisaaNeutraali} teksti="Neutraali" />
+          <Button nappiFunktio={this.lisaaHuono} teksti="Huono" />
+          <h3>Statistiikka:</h3>
+          <p> Ei yhtään palautetta vielä </p>
+          </div>
+        )
+      }
+
     return (
       <div>
       <Otsikko />
       <Button nappiFunktio={this.lisaaHyva} teksti="Hyvä" />
       <Button nappiFunktio={this.lisaaNeutraali} teksti="Neutraali" />
       <Button nappiFunktio={this.lisaaHuono} teksti="Huono" />
+      <h3>Statistiikka:</h3>
       <Statistics aanet={this.state} />
       <Statistic statsit={this.state} />
-      <p> </p>
       </div>
     )
   }
