@@ -1,0 +1,40 @@
+Moi!
+**Mahdollisesti spoilereita kyseisen tehtävän osalta.**
+
+Olisiko tässä anekdoottitehtävässä tarkoituksenmukaisempaa, jos tuo kohdassa:
+```
+ReactDOM.render(
+  <App anecdotes={anecdotes} />,
+  document.getElementById('root')
+)
+```
+annettu property (anecdotes) ei olisi samanniminen, kuin tuo vakiomuuttuja anecdotes?
+```
+const anecdotes = [
+ //Anekdootteja
+]
+```
+Ymmärtääkseni, koska tuo vakiomuuttuja on samassa tiedostossa, siihen pystyy nyt viittaamaan suoraa esim. konstruktorissa pelkästään `anecdotes.`, vaikka ilmeisesti tarkoitus olisi, että siihen viitattaisiin `props.anecdotes` kautta.
+
+Eli tämä(1):
+```
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      anekdoottiPituus: anecdotes.length
+    }
+  }
+```
+sekä tämä(2):
+```
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      anekdoottiPituus: props.anecdotes.length
+    }
+  }
+```
+Tuottavat saman lopputuloksen.
+Jos vakiomuuttujan nimen vaihtaa joksikin muuksi, niin tuo 1. tapa tietysti aiheuttaa virheen.
